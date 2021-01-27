@@ -13,6 +13,7 @@ import java.time.*;
 import java.time.temporal.*;
 import java.util.*;
 
+@CrossOrigin()
 @RestController
 public class HTTPHandler {
 
@@ -25,6 +26,7 @@ public class HTTPHandler {
         map.put("about", TextshareCoreApplication.about);
         return ResponseEntity.ok(map);
     }
+
 
     @PostMapping(path = "api/new")
     public static ResponseEntity<String> createText(@RequestBody String text){
