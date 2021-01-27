@@ -8,7 +8,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.nullspace'
 version = 'ALPHA-0.1'
-sourceCompatibility = '15'
+sourceCompatibility = '8'
 
 repositories {
 	mavenCentral()

@@ -1,10 +1,12 @@
 package com.nullspace.textsharecore;
 
+import com.fasterxml.jackson.core.*;
+
 import java.util.*;
 
 public class HandyUtils {
 
-    public static String generateRandomID(){
+    public static String generateRandomID() {
         int[] randomNums = new int[6];
         for (int i = 0; i < randomNums.length; i++) {
             randomNums[i] = (int) (Math.random() * 62);

@@ -34,15 +34,7 @@ public class TextshareCoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TextshareCoreApplication.class, args);
 		if (args.length > 0){
-			for (int i = 0; i < args.length; i++) {
-				switch (args[i]){
-					case "token":
-						MongoHandler.connectToMongo(args[i + 1]);
-						i++;
-						break;
-				}
-			}
+			MongoHandler.connectToMongo(args[0]);
 		}
 	}
-
 }

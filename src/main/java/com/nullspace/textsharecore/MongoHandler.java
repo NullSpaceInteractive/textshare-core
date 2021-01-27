@@ -1,5 +1,7 @@
 package com.nullspace.textsharecore;
 
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 import com.mongodb.client.*;
 import com.mongodb.client.model.*;
 import com.mongodb.client.result.*;
@@ -21,8 +23,13 @@ public class MongoHandler {
     }
 
 
-    public static Document getDocument(String id){
-        return (Document) texts.find(Filters.eq("_id", id)).first();
+    public static TextEntry getDocument(String id){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(texts.find(Filters.eq("_id", id)).first().toJson(), TextEntry.class);
+        } catch (Exception e){
+            return null;
+        }
     }
 
     public static boolean createDocument(Map<String, Object> content){

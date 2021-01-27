@@ -1,13 +1,16 @@
 package com.nullspace.textsharecore;
 
+import com.fasterxml.jackson.core.*;
 import org.bson.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.json.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.*;
 
 import java.time.*;
+import java.time.temporal.*;
 import java.util.*;
 
 @RestController
@@ -29,6 +32,7 @@ public class HTTPHandler {
         String id = HandyUtils.generateRandomID();
         map.put("_id", id);
         map.put("text", text);
+        map.put("date", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString());
         if (MongoHandler.createDocument(map)){
             return ResponseEntity.ok(id);
         } else {
@@ -38,9 +42,9 @@ public class HTTPHandler {
     }
 
     @GetMapping(path = "api/{id}")
-    public static ResponseEntity<String> getText(@PathVariable String id){
-        Document d = MongoHandler.getDocument(id);
-        return d != null ? ResponseEntity.ok(d.toJson()) : ResponseEntity.status(404).body("The requested text does not exist");
+    public static ResponseEntity<TextEntry> getText(@PathVariable String id) {
+        TextEntry t = MongoHandler.getDocument(id);
+        return t != null ? ResponseEntity.ok(t) : ResponseEntity.status(404).build();
     }
 
 
